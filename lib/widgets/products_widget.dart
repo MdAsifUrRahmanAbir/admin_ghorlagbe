@@ -20,6 +20,7 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   String title = '';
   String description = '';
+  String map = '';
   String productCat = '';
   String? imageUrl;
   String price = '0.0';
@@ -48,6 +49,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             title = productsDoc.get('title');
             description = productsDoc.get('description');
             description = productsDoc.get('description');
+            map = productsDoc.get('map');
             productCat = productsDoc.get('productCategoryName');
             imageUrl = productsDoc.get('imageUrl');
             price = productsDoc.get('price');
@@ -83,6 +85,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                   id: widget.id,
                   title: title,
                   description: description,
+                  map: map,
+                  mapUrl: map,
                   price: price,
                   salePrice: salePrice.toDouble(),
                   productCat: productCat,
@@ -112,8 +116,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                             ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
                             : imageUrl!,
                         fit: BoxFit.fill,
-                        // width: screenWidth * 0.12,
-                        height: size.width * 0.12,
+                        width: double.infinity,
+                        height: size.width * 0.21,
                       ),
                     ),
                     const Spacer(),
@@ -127,6 +131,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                         id: widget.id,
                                         title: title,
                                         description: description,
+                                        map: map,
+                                        mapUrl: map,
                                         price: price,
                                         salePrice: salePrice.toDouble(),
                                         productCat: productCat,

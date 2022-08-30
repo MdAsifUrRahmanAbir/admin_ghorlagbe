@@ -47,7 +47,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                         fct: () {
                           context.read<MenuController>().controlProductsMenu();
                         },
-                        title: 'All products',
+                        title: 'All Houses',
                       ),
                       const SizedBox(
                         height: 25,

@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_admin_panel/consts/constants.dart';
 import 'package:grocery_admin_panel/inner_screens/add_prod.dart';
@@ -6,6 +10,7 @@ import 'package:grocery_admin_panel/services/utils.dart';
 import 'package:grocery_admin_panel/widgets/buttons.dart';
 import 'package:grocery_admin_panel/widgets/header.dart';
 import 'package:grocery_admin_panel/widgets/text_widget.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/MenuController.dart';
@@ -14,8 +19,53 @@ import '../inner_screens/all_products.dart';
 import '../widgets/grid_products.dart';
 import '../widgets/orders_list.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+
+
+
+  //////
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+  //////
+
+
+
+  @override
+  void initState() {
+    getConnectivity();
+    super.initState();
+  }
+
+  //
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+            (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
+
+//
+////
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+  /////
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +88,7 @@ class DashboardScreen extends StatelessWidget {
               height: 20,
             ),
             TextWidget(
-              text: 'Latest Products',
+              text: 'Latest',
               color: color,
             ),
             const SizedBox(
@@ -69,7 +119,7 @@ class DashboardScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      text: 'Add product',
+                      text: 'Add House',
                       icon: Icons.add,
                       backgroundColor: Colors.blue),
                 ],
@@ -107,4 +157,44 @@ class DashboardScreen extends StatelessWidget {
       ),
     );
   }
+
+
+
+
+  showDialogBox() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      //title: const Text('No Connection'),
+      content: Column(
+        children: [
+          Image.asset(
+            "assets/images/internet.png",height: 250,width: 400,fit: BoxFit.cover,
+          ),
+
+          SizedBox(height: 10,),
+          Text("Opps",style: TextStyle(fontSize: 22,color: Colors.amber),),
+          SizedBox(height: 10,),
+          Text('No Connection'),
+          Text('Please check your internet connectivity',style: TextStyle(fontSize: 16,),),
+        ],
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Cancel');
+            setState(() => isAlertSet = false);
+            isDeviceConnected =
+            await InternetConnectionChecker().hasConnection;
+            if (!isDeviceConnected && isAlertSet == false) {
+              showDialogBox();
+              setState(() => isAlertSet = true);
+            }
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+
+
 }

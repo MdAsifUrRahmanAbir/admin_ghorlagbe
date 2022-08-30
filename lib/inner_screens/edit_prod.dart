@@ -14,6 +14,7 @@ import 'package:grocery_admin_panel/widgets/buttons.dart';
 import 'package:grocery_admin_panel/widgets/text_widget.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // import 'package:firebase/firebase.dart' as fb;
 
@@ -23,6 +24,8 @@ class EditProductScreen extends StatefulWidget {
       required this.id,
       required this.title,
       required this.description,
+        required this.map,
+        required this.mapUrl,
       required this.price,
       required this.salePrice,
       required this.productCat,
@@ -31,9 +34,12 @@ class EditProductScreen extends StatefulWidget {
       required this.isPiece})
       : super(key: key);
 
-  final String id, title, price, productCat, imageUrl, description;
+  final String id, title, price, productCat, imageUrl, description,map,mapUrl;
   final bool isPiece, isOnSale;
   final double salePrice;
+
+  //new added part
+  //String mapUrl;
   @override
   _EditProductScreenState createState() => _EditProductScreenState();
 }
@@ -41,7 +47,7 @@ class EditProductScreen extends StatefulWidget {
 class _EditProductScreenState extends State<EditProductScreen> {
   final _formKey = GlobalKey<FormState>();
   // Title and price controllers
-  late final TextEditingController _titleController, _priceController, _descriptionController;
+  late final TextEditingController _titleController, _priceController, _descriptionController,mapController;
   // Category
 
   late String _catValue;
@@ -65,6 +71,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _priceController = TextEditingController(text: widget.price);
     _titleController = TextEditingController(text: widget.title);
     _descriptionController = TextEditingController(text: widget.description);
+
+    //new added part
+    mapController = TextEditingController(text: widget.map);
+    //new added part
+
+
     // Set the variables
     _salePrice = widget.salePrice;
     _catValue = widget.productCat;
@@ -89,6 +101,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _priceController.dispose();
     _titleController.dispose();
     _descriptionController.dispose();
+
+
+    //new added part
+    mapController.dispose();
+    //new added part
+
     super.dispose();
   }
 
@@ -120,6 +138,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
             .update({
           'title': _titleController.text,
           'description': _descriptionController.text,
+
+          //new added part
+          'map':mapController.text,
+          //new added part
+
           'price': _priceController.text,
           'salePrice': _salePrice,
           'imageUrl':
@@ -152,6 +175,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
       }
     }
   }
+
+
+
+
+
+
+  //new added part
+  Future _mapurlLancher() async {
+    if (!await (launch(widget.mapUrl))) throw 'Could not find ${widget.mapUrl}';
+  }
+//new added part
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +235,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       children: <Widget>[
 
                         TextWidget(
-                          text: 'Product title*',
+                          text: 'House Location*',
                           color: color,
                           isTitle: true,
                         ),
@@ -219,7 +257,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           height: 20,
                         ),
                         TextWidget(
-                          text: 'Product description*',
+                          text: 'House description*',
                           color: color,
                           isTitle: true,
                         ),
@@ -238,6 +276,31 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           },
                           decoration: inputDecoration,
                         ),
+
+
+
+                        //new added part
+                        TextWidget(
+                          text: 'House Location Link*',
+                          color: color,
+                          isTitle: true,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: mapController,
+                          key: const ValueKey('Map'),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a Title';
+                            }
+                            return null;
+                          },
+                          decoration: inputDecoration,
+                        ),
+
+
                         const SizedBox(
                           height: 20,
                         ),
@@ -279,7 +342,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                     ),
                                     const SizedBox(height: 20),
                                     TextWidget(
-                                      text: 'Product category*',
+                                      text: 'House category*',
                                       color: color,
                                       isTitle: true,
                                     ),
@@ -389,7 +452,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 child: Container(
                                   height: size.width > 650
                                       ? 350
-                                      : size.width * 0.45,
+                                      : size.width * 0.50,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(
                                       12,
@@ -480,7 +543,42 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               ),
                             ],
                           ),
-                        )
+                        ),
+
+
+
+
+
+                        //new added part
+                        InkWell(
+                          onTap: (){
+                            setState(() {
+                              _mapurlLancher();
+                            });
+                          },
+                          child: Card(
+                            color: Colors.blue,
+                            child: ListTile(
+                              //leading: Icon(Icons.location_pin),
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.location_pin),
+                                  SizedBox(width: 10,),
+                                  Text("Directions"),
+                                ],
+                              ),
+                              //trailing: FaIcon(FontAwesomeIcons.handPointer,color: Colors.amber,),
+                            ),
+                          ),
+                        ),
+                        //new added part
+
+
+
+
+
+
                       ],
                     ),
                   ),

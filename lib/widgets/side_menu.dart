@@ -30,7 +30,7 @@ class _SideMenuState extends State<SideMenu> {
         children: [
           DrawerHeader(
             child: Image.asset(
-              "assets/images/groceries.png",
+              "assets/images/ghor-chai-logo.png",
             ),
           ),
           DrawerListTile(
@@ -45,7 +45,7 @@ class _SideMenuState extends State<SideMenu> {
             icon: Icons.home_filled,
           ),
           DrawerListTile(
-            title: "View all products",
+            title: "View all Houses",
             press: () {
               Navigator.pushReplacement(
                   context,
@@ -55,7 +55,7 @@ class _SideMenuState extends State<SideMenu> {
             icon: Icons.store,
           ),
           DrawerListTile(
-            title: "View all orders",
+            title: "View all rent orders",
             press: () {
               Navigator.pushReplacement(
                   context,

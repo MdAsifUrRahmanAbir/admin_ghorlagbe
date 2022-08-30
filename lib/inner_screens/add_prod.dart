@@ -36,16 +36,22 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final _formKey = GlobalKey<FormState>();
   String _catValue = 'To-Let';
 
-  late final TextEditingController _titleController, _priceController, _descriptionController;
+  late final TextEditingController _titleController, _priceController, _descriptionController,_mapUrlController;
   int _groupValue = 1;
   bool isPiece = false;
   File? _pickedImage;
+
   Uint8List webImage = Uint8List(8);
   @override
   void initState() {
     _priceController = TextEditingController();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
+
+    //new added part
+    _mapUrlController = TextEditingController();
+    //_lngController = TextEditingController();
+    //new added part
 
     super.initState();
   }
@@ -56,6 +62,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
       _priceController.dispose();
       _titleController.dispose();
       _descriptionController.dispose();
+
+      //new added part
+      _mapUrlController.dispose();
+      //_lngController.dispose();
+      //new added part
     }
     super.dispose();
   }
@@ -121,6 +132,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'title': _titleController.text,
           'description': _descriptionController.text,
           'price': _priceController.text,
+
+          //new added part
+          'map': _mapUrlController.text,
+          //'lng': _lngController.text,
+          //new added part
+
           'salePrice': 0.1,
           //'imageUrl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
           'imageUrl': imageUri.toString(),
@@ -165,6 +182,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
     _priceController.clear();
     _titleController.clear();
     _descriptionController.clear();
+
+    //new added part
+    _mapUrlController.clear();
+    //_lngController.clear();
+    //new added part
+
     setState(() {
       _pickedImage = null;
       webImage = Uint8List(8);
@@ -236,7 +259,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             TextWidget(
-                              text: 'Product title*',
+                              text: 'House Location*',
                               color: color,
                               isTitle: true,
                             ),
@@ -248,7 +271,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               key: const ValueKey('Title'),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter a Title';
+                                  return 'Please enter a House Location';
                                 }
                                 return null;
                               },
@@ -258,7 +281,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               height: 20,
                             ),
                             TextWidget(
-                              text: 'Product Description*',
+                              text: 'House Description*',
                               color: color,
                               isTitle: true,
                             ),
@@ -277,6 +300,37 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               },
                               decoration: inputDecoration,
                             ),
+
+
+
+
+                            //New added part
+                            TextWidget(
+                              text: 'Map Latitude',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _mapUrlController,
+                              key: const ValueKey('Map'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Map Latitude';
+                                }
+                                return null;
+                              },
+                              decoration: inputDecoration,
+                            ),
+
+                            //New added part
+
+
+
+
+
                             const SizedBox(
                               height: 20,
                             ),
@@ -321,7 +375,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         ),
                                         const SizedBox(height: 20),
                                         TextWidget(
-                                          text: 'Product category*',
+                                          text: 'House category*',
                                           color: color,
                                           isTitle: true,
                                         ),
