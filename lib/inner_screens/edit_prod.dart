@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery_admin_panel/Screens/loading_manager.dart';
+import 'package:grocery_admin_panel/screens/dashboard_screen.dart';
+import 'package:grocery_admin_panel/screens/main_screen.dart';
 import 'package:grocery_admin_panel/services/global_method.dart';
 import 'package:grocery_admin_panel/services/utils.dart';
 import 'package:grocery_admin_panel/widgets/buttons.dart';
@@ -26,6 +28,7 @@ class EditProductScreen extends StatefulWidget {
       required this.description,
         required this.map,
         required this.mapUrl,
+        required this.call,
       required this.price,
       required this.salePrice,
       required this.productCat,
@@ -34,7 +37,7 @@ class EditProductScreen extends StatefulWidget {
       required this.isPiece})
       : super(key: key);
 
-  final String id, title, price, productCat, imageUrl, description,map,mapUrl;
+  final String id, title, price, productCat, imageUrl, description,map,mapUrl,call;
   final bool isPiece, isOnSale;
   final double salePrice;
 
@@ -47,7 +50,7 @@ class EditProductScreen extends StatefulWidget {
 class _EditProductScreenState extends State<EditProductScreen> {
   final _formKey = GlobalKey<FormState>();
   // Title and price controllers
-  late final TextEditingController _titleController, _priceController, _descriptionController,mapController;
+  late final TextEditingController _titleController, _priceController, _descriptionController,mapController,callController;
   // Category
 
   late String _catValue;
@@ -75,6 +78,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
     //new added part
     mapController = TextEditingController(text: widget.map);
     //new added part
+
+    //new added
+    callController = TextEditingController(text: widget.call);
+    //new added
 
 
     // Set the variables
@@ -106,6 +113,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
     //new added part
     mapController.dispose();
     //new added part
+
+    //new added
+    callController.dispose();
+    //new added
 
     super.dispose();
   }
@@ -142,6 +153,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
           //new added part
           'map':mapController.text,
           //new added part
+
+          //new added
+          'call':callController.text,
+          //new added
 
           'price': _priceController.text,
           'salePrice': _salePrice,
@@ -301,9 +316,40 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         ),
 
 
+                        /*const SizedBox(
+                          height: 20,
+                        ),*/
+
+
+
+                        //new added part
+                        TextWidget(
+                          text: 'Mobile Number*',
+                          color: color,
+                          isTitle: true,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: callController,
+                          key: const ValueKey('Call'),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please mobile number';
+                            }
+                            return null;
+                          },
+                          decoration: inputDecoration,
+                        ),
+
+
                         const SizedBox(
                           height: 20,
                         ),
+
+
+
                         Row(
                           children: [
                             Expanded(
@@ -536,6 +582,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               ButtonsWidget(
                                 onPressed: () {
                                    _updateProduct();
+                                   Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()));
                                 },
                                 text: 'Update',
                                 icon: IconlyBold.setting,
@@ -550,7 +597,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
 
                         //new added part
-                        InkWell(
+                        /*InkWell(
                           onTap: (){
                             setState(() {
                               _mapurlLancher();
@@ -571,11 +618,62 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               //trailing: FaIcon(FontAwesomeIcons.handPointer,color: Colors.amber,),
                             ),
                           ),
-                        ),
+                        ),*/
                         //new added part
 
 
 
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: (){
+                                setState(() {
+                                  //_mapurlLancher();
+                                  launch('tel:${widget.call}');
+                                });
+                              },
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.blue,
+                                ),
+
+                                child: Icon(Icons.call,color: Colors.white,),
+                              ),
+                            ),
+
+
+
+                            SizedBox(width: 20,),
+                            InkWell(
+                              onTap: (){
+                                setState(() {
+                                  _mapurlLancher();
+                                });
+                              },
+                              child: Container(
+                                height: 45,
+                                width: 240,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.blue,
+                                ),
+
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.location_pin,color: Colors.white,),
+                                    Text("Directions",style: TextStyle(color: Colors.white),),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
 
 
 

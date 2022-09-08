@@ -9,9 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery_admin_panel/controllers/MenuController.dart';
+import 'package:grocery_admin_panel/screens/dashboard_screen.dart';
 import 'package:grocery_admin_panel/screens/loading_manager.dart';
+import 'package:grocery_admin_panel/screens/main_screen.dart';
 import 'package:grocery_admin_panel/services/utils.dart';
 import 'package:grocery_admin_panel/widgets/buttons.dart';
+import 'package:grocery_admin_panel/widgets/grid_products.dart';
 import 'package:grocery_admin_panel/widgets/header.dart';
 import 'package:grocery_admin_panel/widgets/side_menu.dart';
 import 'package:grocery_admin_panel/widgets/text_widget.dart';
@@ -36,7 +39,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final _formKey = GlobalKey<FormState>();
   String _catValue = 'To-Let';
 
-  late final TextEditingController _titleController, _priceController, _descriptionController,_mapUrlController;
+  late final TextEditingController _titleController, _priceController, _descriptionController,_mapUrlController,_callController;
   int _groupValue = 1;
   bool isPiece = false;
   File? _pickedImage;
@@ -53,6 +56,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
     //_lngController = TextEditingController();
     //new added part
 
+    //new added
+    _callController = TextEditingController();
+    //new added
+
     super.initState();
   }
 
@@ -67,6 +74,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
       _mapUrlController.dispose();
       //_lngController.dispose();
       //new added part
+
+      //new added
+      _callController.dispose();
+      //new added
     }
     super.dispose();
   }
@@ -138,6 +149,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
           //'lng': _lngController.text,
           //new added part
 
+          //new added
+          'call': _callController.text,
+          //new added
+
           'salePrice': 0.1,
           //'imageUrl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
           'imageUrl': imageUri.toString(),
@@ -156,6 +171,15 @@ class _UploadProductFormState extends State<UploadProductForm> {
           // textColor: ,
           // fontSize: 16.0
         );
+
+
+
+        //new added
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()));
+        //new added
+
+
+
 
       } on FirebaseException catch (error) {
         GlobalMethods.errorDialog(
@@ -187,6 +211,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
     _mapUrlController.clear();
     //_lngController.clear();
     //new added part
+
+
+    //new added
+    _callController.clear();
+    //new added
 
     setState(() {
       _pickedImage = null;
@@ -306,7 +335,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
                             //New added part
                             TextWidget(
-                              text: 'Map Latitude',
+                              text: 'Map Link',
                               color: color,
                               isTitle: true,
                             ),
@@ -329,6 +358,28 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
 
 
+                            //New added part
+                            TextWidget(
+                              text: 'Mobile Number',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _callController,
+                              key: const ValueKey('Call'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please mobile number';
+                                }
+                                return null;
+                              },
+                              decoration: inputDecoration,
+                            ),
+
+                            //New added part
 
 
                             const SizedBox(

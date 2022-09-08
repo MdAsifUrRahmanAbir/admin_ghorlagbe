@@ -21,6 +21,12 @@ class _ProductWidgetState extends State<ProductWidget> {
   String title = '';
   String description = '';
   String map = '';
+
+  //new added
+  String call = '';
+  //new added
+
+
   String productCat = '';
   String? imageUrl;
   String price = '0.0';
@@ -50,6 +56,12 @@ class _ProductWidgetState extends State<ProductWidget> {
             description = productsDoc.get('description');
             description = productsDoc.get('description');
             map = productsDoc.get('map');
+
+            //new added
+            call = productsDoc.get('call');
+            //new added
+
+
             productCat = productsDoc.get('productCategoryName');
             imageUrl = productsDoc.get('imageUrl');
             price = productsDoc.get('price');
@@ -87,6 +99,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   description: description,
                   map: map,
                   mapUrl: map,
+                  call: call,
                   price: price,
                   salePrice: salePrice.toDouble(),
                   productCat: productCat,
@@ -133,6 +146,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                         description: description,
                                         map: map,
                                         mapUrl: map,
+                                        call: call,
                                         price: price,
                                         salePrice: salePrice.toDouble(),
                                         productCat: productCat,
@@ -207,7 +221,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                 TextWidget(
                   text: title,
                   color: color,
-                  textSize: 20,
+                  textSize: 16,
                   isTitle: true,
                 ),
               ],
