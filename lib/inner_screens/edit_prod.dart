@@ -20,6 +20,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 // import 'package:firebase/firebase.dart' as fb;
 
+
 class EditProductScreen extends StatefulWidget {
   const EditProductScreen(
       {Key? key,
@@ -34,7 +35,8 @@ class EditProductScreen extends StatefulWidget {
       required this.productCat,
       required this.imageUrl,
       required this.isOnSale,
-      required this.isPiece})
+      required this.isPiece
+      })
       : super(key: key);
 
   final String id, title, price, productCat, imageUrl, description,map,mapUrl,call;
@@ -68,6 +70,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   late bool _isPiece;
   // while loading
   bool _isLoading = false;
+
   @override
   void initState() {
     // set the price and title initial values and initialize the controllers

@@ -258,20 +258,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    // const SizedBox(
-                    //   height: 25,
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Header(
-                    //       fct: () {
-                    //         context
-                    //             .read<MenuController>()
-                    //             .controlAddProductsMenu();
-                    //       },
-                    //       title: 'Add product',
-                    //       showTexField: false),
-                    // ),
+
                     const SizedBox(
                       height: 35,
                     ),

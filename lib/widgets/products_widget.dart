@@ -134,63 +134,90 @@ class _ProductWidgetState extends State<ProductWidget> {
                       ),
                     ),
                     const Spacer(),
-                    PopupMenuButton(
-                        itemBuilder: (context) => [
-                              PopupMenuItem(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => EditProductScreen(
-                                        id: widget.id,
-                                        title: title,
-                                        description: description,
-                                        map: map,
-                                        mapUrl: map,
-                                        call: call,
-                                        price: price,
-                                        salePrice: salePrice.toDouble(),
-                                        productCat: productCat,
-                                        imageUrl: imageUrl == null
-                                            ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
-                                            : imageUrl!,
-                                        isOnSale: isOnSale,
-                                        isPiece: isPiece,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: const Text('Edit'),
-                                value: 1,
-                              ),
-                              PopupMenuItem(
-                                onTap: () {
-                                  GlobalMethods.warningDialog(
-                                      title: 'Delete?',
-                                      subtitle: 'Press okay to confirm',
-                                      fct: () async {
-                                        await FirebaseFirestore.instance
-                                            .collection('products')
-                                            .doc(widget.id)
-                                            .delete();
-                                        await Fluttertoast.showToast(
-                                          msg: "Product has been deleted",
-                                          toastLength: Toast.LENGTH_LONG,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 1,
-                                        );
-                                        while (Navigator.canPop(context)) {
-                                          Navigator.pop(context);
-                                        }
-                                      },
-                                      context: context);
-                                },
-                                child: const Text(
-                                  'Delete',
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                value: 2,
-                              ),
-                            ])
+
+                    ///   ##############################
+                    // PopupMenuButton(
+                    //     itemBuilder: (context) => [
+                    //           PopupMenuItem(
+                    //             onTap: () {
+                    //               // Navigator.of(context).push(
+                    //               //   MaterialPageRoute(
+                    //               //     builder: (context) => EditProductScreen(
+                    //               //       id: widget.id,
+                    //               //       title: title,
+                    //               //       description: description,
+                    //               //       map: map,
+                    //               //       mapUrl: map,
+                    //               //       call: call,
+                    //               //       price: price,
+                    //               //       salePrice: salePrice.toDouble(),
+                    //               //       productCat: productCat,
+                    //               //       imageUrl: imageUrl == null
+                    //               //           ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
+                    //               //           : imageUrl!,
+                    //               //       isOnSale: isOnSale,
+                    //               //       isPiece: isPiece,
+                    //               //     ),
+                    //               //   ),
+                    //               // );
+                    //
+                    //
+                    //
+                    //               Navigator.of(context).push(
+                    //                 MaterialPageRoute(
+                    //                   builder: (context) => EditProductScreen(
+                    //                     id: widget.id,
+                    //                     title: title,
+                    //                     description: description,
+                    //                     map: map,
+                    //                     mapUrl: map,
+                    //                     call: call,
+                    //                     price: price,
+                    //                     salePrice: salePrice.toDouble(),
+                    //                     productCat: productCat,
+                    //                     imageUrl: imageUrl == null
+                    //                         ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
+                    //                         : imageUrl!,
+                    //                     isOnSale: isOnSale,
+                    //                     isPiece: isPiece,
+                    //                   ),
+                    //                 ),
+                    //               );
+                    //             },
+                    //             child: const Text('Edit'),
+                    //             value: 1,
+                    //           ),
+                    //           PopupMenuItem(
+                    //             onTap: () {
+                    //               GlobalMethods.warningDialog(
+                    //                   title: 'Delete?',
+                    //                   subtitle: 'Press okay to confirm',
+                    //                   fct: () async {
+                    //                     await FirebaseFirestore.instance
+                    //                         .collection('products')
+                    //                         .doc(widget.id)
+                    //                         .delete();
+                    //                     await Fluttertoast.showToast(
+                    //                       msg: "Product has been deleted",
+                    //                       toastLength: Toast.LENGTH_LONG,
+                    //                       gravity: ToastGravity.CENTER,
+                    //                       timeInSecForIosWeb: 1,
+                    //                     );
+                    //                     while (Navigator.canPop(context)) {
+                    //                       Navigator.pop(context);
+                    //                     }
+                    //                   },
+                    //                   context: context);
+                    //             },
+                    //             child: const Text(
+                    //               'Delete',
+                    //               style: TextStyle(color: Colors.red),
+                    //             ),
+                    //             value: 2,
+                    //           ),
+                    //         ])
+                    ///   ##############################
+
                   ],
                 ),
                 const SizedBox(
