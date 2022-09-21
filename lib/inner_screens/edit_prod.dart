@@ -155,6 +155,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
           //new added part
           'map':mapController.text,
+          'authEmail': 'ADMIN',
           //new added part
 
           //new added
@@ -644,7 +645,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                   color: Colors.blue,
                                 ),
 
-                                child: Icon(Icons.call,color: Colors.white,),
+                                child: const Icon(Icons.call,color: Colors.white,),
                               ),
                             ),
 
@@ -667,7 +668,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
+                                  children: const [
                                     Icon(Icons.location_pin,color: Colors.white,),
                                     Text("Directions",style: TextStyle(color: Colors.white),),
                                   ],

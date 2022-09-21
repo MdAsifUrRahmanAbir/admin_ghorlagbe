@@ -9,20 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery_admin_panel/controllers/MenuController.dart';
-import 'package:grocery_admin_panel/screens/dashboard_screen.dart';
 import 'package:grocery_admin_panel/screens/loading_manager.dart';
 import 'package:grocery_admin_panel/screens/main_screen.dart';
 import 'package:grocery_admin_panel/services/utils.dart';
 import 'package:grocery_admin_panel/widgets/buttons.dart';
-import 'package:grocery_admin_panel/widgets/grid_products.dart';
-import 'package:grocery_admin_panel/widgets/header.dart';
 import 'package:grocery_admin_panel/widgets/side_menu.dart';
 import 'package:grocery_admin_panel/widgets/text_widget.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
-import '../responsive.dart';
 import '../services/global_method.dart';
 //import 'package:firebase/firebase.dart' as fb;
 
@@ -100,42 +96,13 @@ class _UploadProductFormState extends State<UploadProductForm> {
           _isLoading = true;
         });
 
-        ///
-        // fb.StorageReference storageRef =
-        //     fb.storage().ref().child('productsImages').child(_uuid + 'jpg');
-        // final fb.UploadTaskSnapshot uploadTaskSnapshot =
-        //     await storageRef.put(kIsWeb ? webImage : _pickedImage).future;
-        //Uri imageUri = await uploadTaskSnapshot.ref.getDownloadURL();
 
-        ///
         final storageRef = FirebaseStorage.instance.ref();
         Reference? imageRef = storageRef.child('productsImages');
         final filename = _uuid + 'jpg';
         final spaceRef = imageRef.child(filename);
         final uploadTask = await spaceRef.putFile(_pickedImage!);
         final imageUri = await uploadTask.ref.getDownloadURL();
-        //
-        // uploadTask.snapshotEvents.listen((event) async{
-        //   switch (event.state) {
-        //     case TaskState.running:
-        //       final progress = 100.0 * (event.bytesTransferred / event.totalBytes);
-        //       print("#TASK STATE: Upload is $progress% complete.");
-        //       break;
-        //     case TaskState.paused:
-        //       print("#TASK STATE: Upload is paused.");
-        //       break;
-        //     case TaskState.canceled:
-        //       print("#TASK STATE: Upload was canceled");
-        //       break;
-        //     case TaskState.error:
-        //       print("#TASK STATE: Error");
-        //       break;
-        //     case TaskState.success:
-        //         print('#TASK STATE: Complete');
-        //
-        //       break;
-        //   }
-        // });
 
 
         await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
@@ -146,7 +113,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
           //new added part
           'map': _mapUrlController.text,
-          //'lng': _lngController.text,
+          'authEmail': 'ADMIN',
           //new added part
 
           //new added
@@ -175,7 +142,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
 
         //new added
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const MainScreen()));
         //new added
 
 
@@ -225,7 +192,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Utils(context).getTheme;
+    // final theme = Utils(context).getTheme;
     final color = Utils(context).color;
     final _scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
