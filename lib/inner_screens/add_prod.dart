@@ -222,7 +222,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-
                     const SizedBox(
                       height: 35,
                     ),

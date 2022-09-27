@@ -17,15 +17,15 @@ class MainScreen extends StatelessWidget {
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             // We want this side menu only for large screen
-            if (Responsive.isDesktop(context))
-              const Expanded(
-                // default flex = 1
-                // and it takes 1/6 part of the screen
-                child: SideMenu(),
-              ),
-            const Expanded(
+            // if (Responsive.isDesktop(context))
+            //   const Expanded(
+            //     // default flex = 1
+            //     // and it takes 1/6 part of the screen
+            //     child: SideMenu(),
+            //   ),
+            Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
               child: DashboardScreen(),

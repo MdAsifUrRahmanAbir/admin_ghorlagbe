@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../consts/constants.dart';
+import '../services/global_method.dart';
 import 'orders_widget.dart';
 
 class OrdersList extends StatelessWidget {
@@ -36,15 +38,53 @@ class OrdersList extends StatelessWidget {
                   itemBuilder: (ctx, index) {
                     return Column(
                       children: [
-                        OrdersWidget(
-                          price: snapshot.data!.docs[index]['price'],
-                          totalPrice: snapshot.data!.docs[index]['totalPrice'],
-                          productId: snapshot.data!.docs[index]['productId'],
-                          userId: snapshot.data!.docs[index]['userId'],
-                          quantity: snapshot.data!.docs[index]['quantity'],
-                          orderDate: snapshot.data!.docs[index]['orderDate'],
-                          imageUrl: snapshot.data!.docs[index]['imageUrl'],
-                          userName: snapshot.data!.docs[index]['userName'],
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 6,
+                              child: OrdersWidget(
+                                price: snapshot.data!.docs[index]['price'].toDouble(),
+                                totalPrice: snapshot.data!.docs[index]['totalPrice'].toDouble(),
+                                productId: snapshot.data!.docs[index]['productId'],
+                                userId: snapshot.data!.docs[index]['userId'],
+                                quantity: snapshot.data!.docs[index]['quantity'],
+                                orderDate: snapshot.data!.docs[index]['orderDate'],
+                                imageUrl: snapshot.data!.docs[index]['imageUrl'],
+                                userName: snapshot.data!.docs[index]['userName'],
+                              ),
+                            ),
+
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                  onPressed: (){
+                                    GlobalMethods.warningDialog(
+                                        title: 'Delete?',
+                                        subtitle: 'Press okay to confirm',
+
+                                        fct: () async {
+                                          await FirebaseFirestore.instance
+                                              .collection('orders')
+                                              .doc(snapshot.data!.docs[index]['orderId'])
+                                              .delete();
+                                          await Fluttertoast.showToast(
+                                            msg: "Product has been deleted",
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
+                                          );
+                                          while (Navigator.canPop(context)) {
+                                            Navigator.pop(context);
+                                          }
+                                        },
+
+                                        context: context
+                                    );
+                                  },
+                                  icon: const Icon(Icons.delete, color: Colors.red)
+                              ),
+                            )
+                          ],
                         ),
                         const Divider(
                           thickness: 3,

@@ -14,7 +14,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/MenuController.dart';
-import '../inner_screens/all_orders_screen.dart';
 import '../inner_screens/all_products.dart';
 import '../widgets/grid_products.dart';
 import '../widgets/orders_list.dart';
@@ -28,18 +27,14 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
 
-
-
-  //////
   late StreamSubscription subscription;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
-  //////
-
 
 
   @override
   void initState() {
+    print('Dashboard');
     getConnectivity();
     super.initState();
   }
@@ -69,6 +64,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('Dashboard');
     Size size = Utils(context).getScreenSize;
     Color color = Utils(context).color;
     final menuProvider = Provider.of<MenuController>(context);
@@ -171,11 +167,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             "assets/images/internet.png",height: 250,width: 400,fit: BoxFit.cover,
           ),
 
-          SizedBox(height: 10,),
-          Text("Opps",style: TextStyle(fontSize: 22,color: Colors.amber),),
-          SizedBox(height: 10,),
-          Text('No Connection'),
-          Text('Please check your internet connectivity',style: TextStyle(fontSize: 16,),),
+          const SizedBox(height: 10,),
+          const Text("Opps",style: TextStyle(fontSize: 22,color: Colors.amber),),
+          const SizedBox(height: 10,),
+          const Text('No Connection'),
+          Text('Please check your internet connectivity',style: const TextStyle(fontSize: 16,),),
         ],
       ),
       actions: <Widget>[

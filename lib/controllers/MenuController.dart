@@ -32,9 +32,8 @@ class MenuController extends ChangeNotifier {
   // Callbacks
 
   void controlDashboarkMenu() {
-    if (!_scaffoldKey.currentState!.isDrawerOpen) {
-      _scaffoldKey.currentState!.openDrawer();
-    }
+      _scaffoldKey.currentState?.openDrawer();
+
   }
 
   void controlProductsMenu() {

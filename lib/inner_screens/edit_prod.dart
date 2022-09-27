@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery_admin_panel/Screens/loading_manager.dart';
-import 'package:grocery_admin_panel/screens/dashboard_screen.dart';
 import 'package:grocery_admin_panel/screens/main_screen.dart';
 import 'package:grocery_admin_panel/services/global_method.dart';
 import 'package:grocery_admin_panel/services/utils.dart';
@@ -18,7 +17,6 @@ import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// import 'package:firebase/firebase.dart' as fb;
 
 
 class EditProductScreen extends StatefulWidget {
@@ -50,7 +48,7 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   // Title and price controllers
   late final TextEditingController _titleController, _priceController, _descriptionController,mapController,callController;
   // Category
@@ -95,13 +93,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     val = _isPiece ? 2 : 1;
     _imageUrl = widget.imageUrl;
     // Calculate the percentage
-    percToShow = (100 -
-                (_salePrice * 100) /
-                    double.parse(
-                        widget.price)) // WIll be the price instead of 1.88
-            .round()
-            .toStringAsFixed(1) +
-        '%';
+    percToShow = 'TOP';
     super.initState();
   }
 
@@ -125,27 +117,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _updateProduct() async {
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
-
-    if (isValid) {
-      _formKey.currentState!.save();
+    // final isValid = _formKey.currentState!.validate();
+    // FocusScope.of(context).unfocus();
 
       try {
         Uri? imageUri;
         setState(() {
           _isLoading = true;
         });
-        if (_pickedImage != null) {
-          // fb.StorageReference storageRef = fb
-          //     .storage()
-          //     .ref()
-          //     .child('productsImages')
-          //     .child(widget.id + 'jpg');
-          // final fb.UploadTaskSnapshot uploadTaskSnapshot =
-          //     await storageRef.put(kIsWeb ? webImage : _pickedImage).future;
-          // imageUri = await uploadTaskSnapshot.ref.getDownloadURL();
-        }
         await FirebaseFirestore.instance
             .collection('products')
             .doc(widget.id)
@@ -153,10 +132,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
           'title': _titleController.text,
           'description': _descriptionController.text,
 
+
           //new added part
           'map':mapController.text,
-          'authEmail': 'ADMIN',
+          // 'authEmail': 'ADMIN',
           //new added part
+
 
           //new added
           'call':callController.text,
@@ -192,7 +173,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           _isLoading = false;
         });
       }
-    }
+
   }
 
 
@@ -246,7 +227,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   padding: const EdgeInsets.all(16),
                   margin: const EdgeInsets.all(16),
                   child: Form(
-                    key: _formKey,
+                    // key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -463,7 +444,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           width: 5,
                                         ),
                                         TextWidget(
-                                          text: 'Sale',
+                                          text: 'VIP',
                                           color: color,
                                           isTitle: true,
                                         ),
@@ -471,26 +452,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                     ),
                                     const SizedBox(
                                       height: 5,
-                                    ),
-                                    // AnimatedSwitcher(
-                                    //   duration: const Duration(seconds: 1),
-                                    //   child: !_isOnSale
-                                    //       ? Container()
-                                    //       : Row(
-                                    //           children: [
-                                    //             TextWidget(
-                                    //                 text: "\$" +
-                                    //                     _salePrice
-                                    //                         .toStringAsFixed(2),
-                                    //                 color: color),
-                                    //             const SizedBox(
-                                    //               width: 10,
-                                    //             ),
-                                    //             salePourcentageDropDownWidget(
-                                    //                 color),
-                                    //           ],
-                                    //         ),
-                                    // )
+                                    )
                                   ],
                                 ),
                               ),
@@ -586,7 +548,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               ButtonsWidget(
                                 onPressed: () {
                                    _updateProduct();
-                                   Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()));
+                                   print('Updated');
+                                   Navigator.push(context, MaterialPageRoute(builder: (context) => const MainScreen()));
                                 },
                                 text: 'Update',
                                 icon: IconlyBold.setting,
@@ -595,36 +558,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             ],
                           ),
                         ),
-
-
-
-
-
-                        //new added part
-                        /*InkWell(
-                          onTap: (){
-                            setState(() {
-                              _mapurlLancher();
-                            });
-                          },
-                          child: Card(
-                            color: Colors.blue,
-                            child: ListTile(
-                              //leading: Icon(Icons.location_pin),
-                              title: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.location_pin),
-                                  SizedBox(width: 10,),
-                                  Text("Directions"),
-                                ],
-                              ),
-                              //trailing: FaIcon(FontAwesomeIcons.handPointer,color: Colors.amber,),
-                            ),
-                          ),
-                        ),*/
-                        //new added part
-
 
 
                         Row(
@@ -651,7 +584,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
 
 
-                            SizedBox(width: 20,),
+                            const SizedBox(width: 20,),
                             InkWell(
                               onTap: (){
                                 setState(() {
