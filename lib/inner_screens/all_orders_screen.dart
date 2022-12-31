@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:grocery_admin_panel/widgets/orders_list.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/MenuController.dart';
+import '../controllers/menu_controller.dart';
 import '../responsive.dart';
-import '../services/utils.dart';
-import '../widgets/grid_products.dart';
-import '../widgets/header.dart';
+  import '../widgets/header.dart';
 import '../widgets/side_menu.dart';
 
 class AllOrdersScreen extends StatefulWidget {
@@ -20,8 +17,7 @@ class AllOrdersScreen extends StatefulWidget {
 class _AllOrdersScreenState extends State<AllOrdersScreen> {
   @override
   Widget build(BuildContext context) {
-    Size size = Utils(context).getScreenSize;
-    return Scaffold(
+     return Scaffold(
       key: context.read<MenuController>().getOrdersScaffoldKey,
       drawer: const SideMenu(),
       body: SafeArea(

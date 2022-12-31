@@ -12,7 +12,7 @@ import 'package:grocery_admin_panel/widgets/header.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/MenuController.dart';
+import '../controllers/menu_controller.dart';
 import '../inner_screens/all_products.dart';
 import '../widgets/grid_products.dart';
 import '../widgets/orders_list.dart';

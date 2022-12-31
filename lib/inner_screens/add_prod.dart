@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:grocery_admin_panel/controllers/MenuController.dart';
+import 'package:grocery_admin_panel/controllers/menu_controller.dart';
 import 'package:grocery_admin_panel/screens/loading_manager.dart';
 import 'package:grocery_admin_panel/screens/main_screen.dart';
 import 'package:grocery_admin_panel/services/utils.dart';
@@ -538,7 +537,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           _pickedImage = selected;
         });
       } else {
-        print('No image has been picked');
+        debugPrint('No image has been picked');
       }
     } else if (kIsWeb) {
       final ImagePicker _picker = ImagePicker();
@@ -550,10 +549,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
           _pickedImage = File('a');
         });
       } else {
-        print('No image has been picked');
+        debugPrint('No image has been picked');
       }
     } else {
-      print('Something went wrong');
+      debugPrint('Something went wrong');
     }
   }
 
@@ -612,7 +611,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
             setState(() {
               _catValue = value!;
             });
-            print(_catValue);
+            debugPrint(_catValue);
           },
           hint: const Text('Select a category'),
           items: const [

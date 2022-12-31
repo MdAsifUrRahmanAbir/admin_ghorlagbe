@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -55,8 +54,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   late String _catValue;
   // Sale
-  String? _salePercent;
-  late String percToShow;
+   late String percToShow;
   late double _salePrice;
   late bool _isOnSale;
   // Image
@@ -548,7 +546,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               ButtonsWidget(
                                 onPressed: () {
                                    _updateProduct();
-                                   print('Updated');
+                                   debugPrint('Updated');
                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MainScreen()));
                                 },
                                 text: 'Update',

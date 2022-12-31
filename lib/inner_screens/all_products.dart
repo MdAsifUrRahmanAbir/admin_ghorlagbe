@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/MenuController.dart';
+import '../controllers/menu_controller.dart';
 import '../responsive.dart';
 import '../services/utils.dart';
 import '../widgets/grid_products.dart';

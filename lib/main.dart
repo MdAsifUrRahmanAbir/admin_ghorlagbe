@@ -4,7 +4,7 @@ import 'package:grocery_admin_panel/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
-import 'controllers/MenuController.dart';
+import 'controllers/menu_controller.dart';
 import 'inner_screens/add_prod.dart';
 import 'providers/dark_theme_provider.dart';
 
