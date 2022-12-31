@@ -14,7 +14,8 @@ class OrdersWidget extends StatefulWidget {
       required this.imageUrl,
       required this.userName,
       required this.quantity,
-      required this.orderDate})
+      required this.orderDate
+      })
       : super(key: key);
   final double price, totalPrice;
   final String productId, userId, imageUrl, userName;
@@ -69,8 +70,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TextWidget(
-                      text:
-                          '${widget.quantity}X For \$${widget.price.toStringAsFixed(2)}',
+                      text: '${widget.quantity}X For \$${widget.price.toStringAsFixed(2)}',
                       color: color,
                       textSize: 16,
                       isTitle: true,

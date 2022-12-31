@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../inner_screens/edit_prod.dart';
 import '../services/global_method.dart';
@@ -78,16 +77,18 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = Utils(context).getScreenSize;
 
     final color = Utils(context).color;
     getProductsData();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(12),
-        color: Theme.of(context).cardColor.withOpacity(0.6),
+      child: Card(
+        elevation: 1,
+        color: Theme.of(context).cardColor.withOpacity(1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
@@ -114,148 +115,149 @@ class _ProductWidgetState extends State<ProductWidget> {
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 3,
-                      child: Image.network(
-                        imageUrl == null
-                            ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
-                            : imageUrl!,
-                        fit: BoxFit.fill,
-                        width: double.infinity,
-                        height: size.width * 0.21,
+            child: SizedBox(
+              width: double.infinity,
+              height: 130,
+              child: Row(
+                children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 4,
+                    child: Container(
+                      width: 100,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            imageUrl == null
+                                ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
+                                : imageUrl!,
+                          ),
+                          fit: BoxFit.fill,
+                        )
                       ),
                     ),
-                    const Spacer(),
+                  ),
 
-                    ///   ##############################
-                    // PopupMenuButton(
-                    //     itemBuilder: (context) => [
-                    //           PopupMenuItem(
-                    //             onTap: () {
-                    //               // Navigator.of(context).push(
-                    //               //   MaterialPageRoute(
-                    //               //     builder: (context) => EditProductScreen(
-                    //               //       id: widget.id,
-                    //               //       title: title,
-                    //               //       description: description,
-                    //               //       map: map,
-                    //               //       mapUrl: map,
-                    //               //       call: call,
-                    //               //       price: price,
-                    //               //       salePrice: salePrice.toDouble(),
-                    //               //       productCat: productCat,
-                    //               //       imageUrl: imageUrl == null
-                    //               //           ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
-                    //               //           : imageUrl!,
-                    //               //       isOnSale: isOnSale,
-                    //               //       isPiece: isPiece,
-                    //               //     ),
-                    //               //   ),
-                    //               // );
-                    //
-                    //
-                    //
-                    //               Navigator.of(context).push(
-                    //                 MaterialPageRoute(
-                    //                   builder: (context) => EditProductScreen(
-                    //                     id: widget.id,
-                    //                     title: title,
-                    //                     description: description,
-                    //                     map: map,
-                    //                     mapUrl: map,
-                    //                     call: call,
-                    //                     price: price,
-                    //                     salePrice: salePrice.toDouble(),
-                    //                     productCat: productCat,
-                    //                     imageUrl: imageUrl == null
-                    //                         ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
-                    //                         : imageUrl!,
-                    //                     isOnSale: isOnSale,
-                    //                     isPiece: isPiece,
-                    //                   ),
-                    //                 ),
-                    //               );
-                    //             },
-                    //             child: const Text('Edit'),
-                    //             value: 1,
-                    //           ),
-                    //           PopupMenuItem(
-                    //             onTap: () {
-                    //               GlobalMethods.warningDialog(
-                    //                   title: 'Delete?',
-                    //                   subtitle: 'Press okay to confirm',
-                    //                   fct: () async {
-                    //                     await FirebaseFirestore.instance
-                    //                         .collection('products')
-                    //                         .doc(widget.id)
-                    //                         .delete();
-                    //                     await Fluttertoast.showToast(
-                    //                       msg: "Product has been deleted",
-                    //                       toastLength: Toast.LENGTH_LONG,
-                    //                       gravity: ToastGravity.CENTER,
-                    //                       timeInSecForIosWeb: 1,
-                    //                     );
-                    //                     while (Navigator.canPop(context)) {
-                    //                       Navigator.pop(context);
-                    //                     }
-                    //                   },
-                    //                   context: context);
-                    //             },
-                    //             child: const Text(
-                    //               'Delete',
-                    //               style: TextStyle(color: Colors.red),
-                    //             ),
-                    //             value: 2,
-                    //           ),
-                    //         ])
-                    ///   ##############################
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
 
-                  ],
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                Row(
-                  children: [
-                    TextWidget(
-                      text: 'TK$price',
-                      color: color,
-                      textSize: 18,
+                        TextWidget(
+                          text: title,
+                          color: color,
+                          textSize: 16,
+                          maxLines: 2,
+                          isTitle: true,
+                        ),
+
+                        TextWidget(
+                          text: description,
+                          color: color,
+                          maxLines: 1,
+                          textSize: 16,
+                        ),
+
+                        TextWidget(
+                          text: isPiece ? 'For Sell' : 'On Rent',
+                          color: color,
+                          textSize: 18,
+                        ),
+
+                        TextWidget(
+                          text: 'TK$price',
+                          color: Colors.blue,
+                          textSize: 18,
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 7,
-                    ),
-                   
-                    const Spacer(),
-                    TextWidget(
-                      text: isPiece ? 'For Sell' : 'On Rent',
-                      color: color,
-                      textSize: 18,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                TextWidget(
-                  text: title,
-                  color: color,
-                  textSize: 16,
-                  isTitle: true,
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            )
           ),
         ),
       ),
     );
   }
 }
+
+
+/*
+Row(
+              children: [
+                // Expanded(
+                //   flex: 1,
+                //   child: Image.network(
+                //     imageUrl == null
+                //         ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
+                //         : imageUrl!,
+                //     fit: BoxFit.fill,
+                //   ),
+                // ),
+
+                // Container(
+                //   height: 120,
+                //   width: 100,
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(10),
+                //     image: DecorationImage(
+                //       image: NetworkImage(
+                //           imageUrl == null
+                //                 ? 'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png'
+                //                 : imageUrl!,
+                //       )
+                //     )
+                //   ),
+                // ),
+
+                Expanded(
+                  flex: 0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      Row(
+                        children: [
+                          TextWidget(
+                            text: 'TK$price',
+                            color: color,
+                            textSize: 18,
+                          ),
+
+                          const SizedBox(
+                            width: 30,
+                          ),
+
+                          TextWidget(
+                            text: isPiece ? 'For Sell' : 'On Rent',
+                            color: color,
+                            textSize: 18,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Expanded(
+                        flex: 0,
+                        child: TextWidget(
+                          text: title,
+                          color: color,
+                          textSize: 16,
+                          maxLines: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+ */
+

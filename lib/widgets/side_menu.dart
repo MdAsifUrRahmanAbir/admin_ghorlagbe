@@ -24,17 +24,58 @@ class _SideMenuState extends State<SideMenu> {
     final theme = Utils(context).getTheme;
     final themeState = Provider.of<DarkThemeProvider>(context);
 
-    final color = Utils(context).color;
     return Drawer(
       child: ListView(
         children: [
-          DrawerHeader(
-            child: Image.asset(
-              "assets/images/ghor-chai-logo.png",
+          Container(
+            alignment: Alignment.centerLeft,
+            width: double.infinity,
+            height: 200,
+            color: Colors.blueAccent,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white),
+                  child: Image.asset(
+                    'assets/images/LOGO.png',
+                    scale: 8,
+                  ),
+                ),
+                const SizedBox(width: 15),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text('GHOR CHAI',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
+                    SizedBox(height: 15),
+                    Text(
+                      "Keep Calm and Let's find\nyou A New Home.",
+                      style: TextStyle(color: Colors.white),
+                      maxLines: 3,
+                      overflow: TextOverflow.clip,
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
+
+
+          const SizedBox(height: 15),
+
+
           DrawerListTile(
-            title: "Main",
+            title: "Dashboard",
             press: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(

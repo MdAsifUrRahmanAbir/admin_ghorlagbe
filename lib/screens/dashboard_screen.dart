@@ -9,7 +9,6 @@ import 'package:grocery_admin_panel/responsive.dart';
 import 'package:grocery_admin_panel/services/utils.dart';
 import 'package:grocery_admin_panel/widgets/buttons.dart';
 import 'package:grocery_admin_panel/widgets/header.dart';
-import 'package:grocery_admin_panel/widgets/text_widget.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +33,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void initState() {
-    print('Dashboard');
     getConnectivity();
     super.initState();
   }
@@ -64,29 +62,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('Dashboard');
     Size size = Utils(context).getScreenSize;
-    Color color = Utils(context).color;
     final menuProvider = Provider.of<MenuController>(context);
     return SafeArea(
       child: SingleChildScrollView(
         controller: ScrollController(),
-        padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            Header(
-              fct: () {
-                menuProvider.controlDashboarkMenu();
-              },
-              title: 'Dashboard',
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10
+              ),
+              color: Colors.blue,
+              child: Header(
+                fct: () {
+                  menuProvider.controlDashboarkMenu();
+                },
+                title: 'Dashboard',
+              ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextWidget(
-              text: 'Latest',
-              color: color,
-            ),
+
             const SizedBox(
               height: 15,
             ),
@@ -171,7 +166,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const Text("Opps",style: TextStyle(fontSize: 22,color: Colors.amber),),
           const SizedBox(height: 10,),
           const Text('No Connection'),
-          Text('Please check your internet connectivity',style: const TextStyle(fontSize: 16,),),
+          const Text('Please check your internet connectivity',style: TextStyle(fontSize: 16,),),
         ],
       ),
       actions: <Widget>[

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grocery_admin_panel/model/order_model.dart';
 
 import '../consts/constants.dart';
+import '../screens/order_view.dart';
 import '../services/global_method.dart';
 import 'orders_widget.dart';
 
@@ -32,9 +34,7 @@ class OrdersList extends StatelessWidget {
               child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: isInDashboard && snapshot.data!.docs.length > 4
-                      ? 4
-                      : snapshot.data!.docs.length,
+                  itemCount: snapshot.data!.docs.length,
                   itemBuilder: (ctx, index) {
                     return Column(
                       children: [
@@ -42,15 +42,36 @@ class OrdersList extends StatelessWidget {
                           children: [
                             Expanded(
                               flex: 6,
-                              child: OrdersWidget(
-                                price: snapshot.data!.docs[index]['price'].toDouble(),
-                                totalPrice: snapshot.data!.docs[index]['totalPrice'].toDouble(),
-                                productId: snapshot.data!.docs[index]['productId'],
-                                userId: snapshot.data!.docs[index]['userId'],
-                                quantity: snapshot.data!.docs[index]['quantity'],
-                                orderDate: snapshot.data!.docs[index]['orderDate'],
-                                imageUrl: snapshot.data!.docs[index]['imageUrl'],
-                                userName: snapshot.data!.docs[index]['userName'],
+                              child: InkWell(
+                                onTap: (){
+                                  OrderModel data = OrderModel(
+                                    price: snapshot.data!.docs[index]['price'].toDouble(),
+                                    totalPrice: snapshot.data!.docs[index]['totalPrice'].toDouble(),
+                                    productId: snapshot.data!.docs[index]['productId'],
+                                    userId: snapshot.data!.docs[index]['userId'],
+                                    quantity: snapshot.data!.docs[index]['quantity'],
+                                    orderDate: snapshot.data!.docs[index]['orderDate'],
+                                    imageUrl: snapshot.data!.docs[index]['imageUrl'],
+                                    userName: snapshot.data!.docs[index]['userName'],
+                                    userNumber: snapshot.data!.docs[index]['userNumber'],
+                                    userEmail: snapshot.data!.docs[index]['userEmail'],
+                                    orderId: snapshot.data!.docs[index]['orderId'],
+                                  );
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => OrderView(
+                                    data: data,
+                                  )));
+                                },
+                                child: OrdersWidget(
+                                  price: snapshot.data!.docs[index]['price'].toDouble(),
+                                  totalPrice: snapshot.data!.docs[index]['totalPrice'].toDouble(),
+                                  productId: snapshot.data!.docs[index]['productId'],
+                                  userId: snapshot.data!.docs[index]['userId'],
+                                  quantity: snapshot.data!.docs[index]['quantity'],
+                                  orderDate: snapshot.data!.docs[index]['orderDate'],
+                                  imageUrl: snapshot.data!.docs[index]['imageUrl'],
+                                  userName: snapshot.data!.docs[index]['userName'],
+                                ),
                               ),
                             ),
 

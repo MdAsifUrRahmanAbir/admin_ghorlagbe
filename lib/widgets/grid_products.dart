@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery_admin_panel/services/utils.dart';
 
-import '../consts/constants.dart';
 import 'products_widget.dart';
 
 class ProductGridWidget extends StatelessWidget {
@@ -18,7 +16,6 @@ class ProductGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Utils(context).color;
     return StreamBuilder<QuerySnapshot>(
       //there was a null error just add those lines
       stream: FirebaseFirestore.instance.collection('products').snapshots(),
@@ -45,18 +42,16 @@ class ProductGridWidget extends StatelessWidget {
             );
           }
         }
-        return GridView.builder(
+        return ListView.separated(
+          separatorBuilder: (_, index){
+            return const SizedBox(height: 0);
+          },
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
+            scrollDirection: Axis.vertical,
             itemCount: isInMain && snapshot.data!.docs.length > 4
                 ? 4
                 : snapshot.data!.docs.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              childAspectRatio: childAspectRatio,
-              crossAxisSpacing: defaultPadding,
-              mainAxisSpacing: defaultPadding,
-            ),
             itemBuilder: (context, index) {
               return ProductWidget(
                 id: snapshot.data!.docs[index]['id'],
