@@ -43,7 +43,7 @@ class _SideMenuState extends State<SideMenu> {
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white),
                   child: Image.asset(
-                    'assets/images/LOGO.png',
+                    'assets/images/logo2.png',
                     scale: 8,
                   ),
                 ),
