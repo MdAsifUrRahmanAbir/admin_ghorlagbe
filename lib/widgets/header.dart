@@ -29,7 +29,11 @@ class Header extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               title,
-              style: Theme.of(context).textTheme.headline6,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 27
+              )
             ),
           ),
         if (Responsive.isDesktop(context))

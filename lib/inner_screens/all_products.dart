@@ -40,14 +40,17 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                   controller: ScrollController(),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Header(
-                        fct: () {
-                          context.read<MenuController>().controlProductsMenu();
-                        },
-                        title: 'All Houses',
+
+                      Container(
+                        color: Colors.blue,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Header(
+                          fct: () {
+                            context.read<MenuController>().controlProductsMenu();
+                          },
+                          title: 'All Houses',
+                          showTexField: true,
+                        ),
                       ),
                       const SizedBox(
                         height: 25,

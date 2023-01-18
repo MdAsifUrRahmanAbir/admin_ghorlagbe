@@ -1,0 +1,10 @@
+#Wed Jan 04 18:19:03 BDT 2023
+base.2=D\:\\Ghor Chai Project\\adminghorchai\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex
+path.2=classes3.dex
+base.1=D\:\\Ghor Chai Project\\adminghorchai\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
+path.1=classes2.dex
+base.0=D\:\\Ghor Chai Project\\adminghorchai\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=classes.dex

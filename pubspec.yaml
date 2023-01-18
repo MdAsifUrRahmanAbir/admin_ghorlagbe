@@ -49,8 +49,9 @@ flutter_icons:
   ios: true
   image_path: "assets/images/logo2.png"
 
+
 flutter_app_name:
-  name: "GhorChai Admin"
+  name: "Admin Ghor Chai"
 
 
 flutter:

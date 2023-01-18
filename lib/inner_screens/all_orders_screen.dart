@@ -1,10 +1,10 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:grocery_admin_panel/widgets/orders_list.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/menu_controller.dart';
 import '../responsive.dart';
-  import '../widgets/header.dart';
+import '../widgets/header.dart';
 import '../widgets/side_menu.dart';
 
 class AllOrdersScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class AllOrdersScreen extends StatefulWidget {
 class _AllOrdersScreenState extends State<AllOrdersScreen> {
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
       key: context.read<MenuController>().getOrdersScaffoldKey,
       drawer: const SideMenu(),
       body: SafeArea(
@@ -38,14 +38,16 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                   controller: ScrollController(),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Header(showTexField: false,
-                        fct: () {
-                          context.read<MenuController>().controlAllOrder();
-                        },
-                        title: 'All Orders',
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        color: Colors.blue,
+                        child: Header(
+                          showTexField: true,
+                          fct: () {
+                            context.read<MenuController>().controlAllOrder();
+                          },
+                          title: 'All Orders',
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
